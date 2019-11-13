@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "930091197487",
+    "firebase_url": "https://smartmushroom-39ee5.firebaseio.com",
+    "project_id": "smartmushroom-39ee5",
+    "storage_bucket": "smartmushroom-39ee5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:930091197487:android:4fc38acd7b494930c792da",
+        "android_client_info": {
+          "package_name": "com.wanpracha.wanmushroom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "930091197487-0c74l86vdjplatg1jng1ruqtjvp8bp79.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwRmtl-IKTmiILQ6oifndBvH8ZRMNr5n4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "930091197487-0c74l86vdjplatg1jng1ruqtjvp8bp79.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

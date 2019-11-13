@@ -1,4 +1,9 @@
+import 'dart:ffi';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:wanmushroom/screens/my_service.dart';
+import 'package:wanmushroom/utility/my_dialog.dart';
 import 'package:wanmushroom/utility/my_style.dart';
 
 class Home extends StatefulWidget {
@@ -11,8 +16,25 @@ class _HomeState extends State<Home> {
   //create stateless
 
 // Field
+  String email, password;
+  final formKey = GlobalKey<FormState>();
 
 // Method
+  @override  //method do first before build method 
+  void initState(){
+    super.initState();
+    checkStatus(); //check status on firebase that login or not login if login is true move to Myservice
+  }
+
+  Future<void> checkStatus() async{
+    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    FirebaseUser firebaseUser = await firebaseAuth.currentUser();
+    if (firebaseUser != null) {
+      moveToMyService();
+    }
+
+  }
+
   Widget loginButton() {
     return Container(
       width: 250.0,
@@ -33,9 +55,41 @@ class _HomeState extends State<Home> {
             color: Colors.white,
           ),
         ),
-        onPressed: () {},
+        onPressed: () {
+          print('You Click Login');
+          formKey.currentState.save();
+          print('email=$email, password = $password');
+          registerThread();
+        },
       ),
     );
+  }
+
+  // Thread
+  Future<void> registerThread() async {
+    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    await firebaseAuth
+        .signInWithEmailAndPassword(email: email, password: password)
+        .then((var response) {
+      moveToMyService();
+    }).catchError((var response) {
+      print('response = $response');
+      String title = response.code;
+      String message = response.message;
+      print('title = $title, message = $message');
+      normalDialog(context, title, message);
+    });
+  }
+
+  void moveToMyService() {
+    MaterialPageRoute materialPageRoute =
+        MaterialPageRoute(builder: (BuildContext context) {
+      return MyService();
+    }); //move to next page
+    Navigator.of(context).pushAndRemoveUntil(materialPageRoute,
+        (Route<dynamic> route) {
+      return false;
+    });
   }
 
   Widget emailText() {
@@ -58,6 +112,9 @@ class _HomeState extends State<Home> {
           ),
           hintText: 'you@email.com',
         ),
+        onSaved: (String value) {
+          email = value.trim();
+        },
       ),
     );
   }
@@ -83,6 +140,9 @@ class _HomeState extends State<Home> {
           ),
           hintText: 'More 6 Charactor',
         ),
+        onSaved: (String value) {
+          password = value.trim();
+        },
       ),
     );
   }
@@ -120,25 +180,29 @@ class _HomeState extends State<Home> {
             ),
           ),
           child: Center(
-            child: SingleChildScrollView(   //scroll view screen
-                          child: Container(
+            child: SingleChildScrollView(
+              //scroll view screen
+              child: Container(
                 padding: EdgeInsets.all(20.0),
                 color: Color.fromARGB(120, 255, 255, 255),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    showLogo(),
-                    SizedBox(
-                      height: 15.0,
-                    ),
-                    showAppName(),
-                    emailText(),
-                    passwordText(),
-                    SizedBox(
-                      height: 15.0,
-                    ),
-                    loginButton(),
-                  ],
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      showLogo(),
+                      SizedBox(
+                        height: 15.0,
+                      ),
+                      showAppName(),
+                      emailText(),
+                      passwordText(),
+                      SizedBox(
+                        height: 15.0,
+                      ),
+                      loginButton(),
+                    ],
+                  ),
                 ),
               ),
             ),
