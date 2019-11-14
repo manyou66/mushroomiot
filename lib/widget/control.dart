@@ -7,15 +7,140 @@ class Control extends StatefulWidget {
 
 class _ControlState extends State<Control> {
   //Field
-  bool modeBool = false;
+  bool modeBool = false,
+      fogBool = false,
+      fanBool = false,
+      lightBool = false,
+      waterBool = false;
 
   //Method
   Widget switchMode() {
-    return Switch(
-      value: modeBool,
-      onChanged: (bool value) {
-        changeBool(value);
-      },
+    return Card(
+      //กรอบล้อมรอบ
+      child: Container(
+        padding: EdgeInsets.all(15.0),
+        child: Column(
+          children: <Widget>[
+            Text('Mode'),
+            Row(
+              children: <Widget>[
+                Text('Auto'),
+                Switch(
+                  value: modeBool,
+                  onChanged: (bool value) {
+                    changeBool(value);
+                  },
+                ),
+                Text('Manual'),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget switchFog() {
+    return Card(
+      //กรอบล้อมรอบ
+      child: Container(
+        padding: EdgeInsets.all(15.0),
+        child: Column(
+          children: <Widget>[
+            Text('Fog'),
+            Row(
+              children: <Widget>[
+                Text('OFF'),
+                Switch(
+                  value: modeBool,
+                  onChanged: (bool value) {
+                    changeBool(value);
+                  },
+                ),
+                Text('ON'),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget switchFan() {
+    return Card(
+      //กรอบล้อมรอบ
+      child: Container(
+        padding: EdgeInsets.all(15.0),
+        child: Column(
+          children: <Widget>[
+            Text('Fan'),
+            Row(
+              children: <Widget>[
+                Text('OFF'),
+                Switch(
+                  value: modeBool,
+                  onChanged: (bool value) {
+                    changeBool(value);
+                  },
+                ),
+                Text('ON'),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget switchWater() {
+    return Card(
+      //กรอบล้อมรอบ
+      child: Container(
+        padding: EdgeInsets.all(15.0),
+        child: Column(
+          children: <Widget>[
+            Text('Water'),
+            Row(
+              children: <Widget>[
+                Text('OFF'),
+                Switch(
+                  value: modeBool,
+                  onChanged: (bool value) {
+                    changeBool(value);
+                  },
+                ),
+                Text('ON'),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget switchLight() {
+    return Card(
+      //กรอบล้อมรอบ
+      child: Container(
+        padding: EdgeInsets.all(15.0),
+        child: Column(
+          children: <Widget>[
+            Text('Light'),
+            Row(
+              children: <Widget>[
+                Text('OFF'),
+                Switch(
+                  value: modeBool,
+                  onChanged: (bool value) {
+                    changeBool(value);
+                  },
+                ),
+                Text('ON'),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -27,31 +152,50 @@ class _ControlState extends State<Control> {
   }
 
   Widget topRow() {
-    return Row(mainAxisSize: MainAxisSize.min,
+    return Row(
+      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        switchMode(),
-        switchMode(),
+        switchFog(),
+        switchFan(),
       ],
     );
   }
 
+  Widget modeRow() {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[switchMode()],
+    );
+  }
+
   Widget bottonRow() {
-    return Row(mainAxisSize: MainAxisSize.min,
+    return Row(
+      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        switchMode(),
-        switchMode(),
+        switchWater(),
+        switchLight(),
       ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          topRow(),
-          bottonRow(),
-        ],
+    return Container(
+      decoration: BoxDecoration(
+        gradient: RadialGradient(colors: [
+          Colors.white,
+          Colors.blue.shade700,
+        ], radius: 1.0),
+      ),
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            modeRow(),
+            topRow(),
+            bottonRow(),
+          ],
+        ),
       ),
     );
   }
