@@ -1,4 +1,6 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:wanmushroom/models/iot%3Emodel.dart';
 
 class Setting extends StatefulWidget {
   @override
@@ -7,19 +9,58 @@ class Setting extends StatefulWidget {
 
 class _SettingState extends State<Setting> {
   // Field
+  IotModel iotModel;
+  String humHight = '',
+      humLow = '',
+      temHight = '',
+      temLow = '',
+      suitableTem = '',
+      suitableHumi = '';
+
+  final formKey = GlobalKey<FormState>();
 
   //Method
+  @override
+  void initState() {
+    super.initState();
+    readDatabase();
+  }
+
+  Future<void> readDatabase() async {
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.instance;
+    DatabaseReference databaseReference =
+        firebaseDatabase.reference().child('IoT');
+    await databaseReference.once().then((DataSnapshot dataSnapshot) {
+      setState(() {
+        iotModel = IotModel.formMap(dataSnapshot.value);
+        humLow = iotModel.humidityLow.toString();
+        humHight = iotModel.humidityHigh.toString();
+        temHight = iotModel.tempHigh.toString();
+        temLow = iotModel.tempLow.toString();
+        suitableTem = iotModel.suitableTem.toString();
+        suitableHumi = iotModel.suitableHumi.toString();
+      });
+    });
+  }
+
   Widget humidityHight() {
     return Container(
       width: MediaQuery.of(context).size.width * 0.4,
       child: TextFormField(
+        initialValue: humHight,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
+          helperText: 'Current: $humHight',
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(),
           ),
           labelText: 'Humidity Hight',
         ),
+        onSaved: (String value) {
+          if (value.isNotEmpty) {
+            humHight = value.trim();
+          }
+        },
       ),
     );
   }
@@ -28,13 +69,20 @@ class _SettingState extends State<Setting> {
     return Container(
       width: MediaQuery.of(context).size.width * 0.4,
       child: TextFormField(
+        initialValue: humLow,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
+          helperText: 'Current: $humLow',
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(),
           ),
           labelText: 'Humidity Low',
         ),
+        onSaved: (String value) {
+          if (value.isNotEmpty) {
+            humLow = value.trim();
+          }
+        },
       ),
     );
   }
@@ -43,13 +91,20 @@ class _SettingState extends State<Setting> {
     return Container(
       width: MediaQuery.of(context).size.width * 0.4,
       child: TextFormField(
+        initialValue: temHight,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
+          helperText: 'Current: $temHight',
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(),
           ),
           labelText: 'Temp Hight',
         ),
+        onSaved: (String value) {
+          if (value.isNotEmpty) {
+            temHight = value.trim();
+          }
+        },
       ),
     );
   }
@@ -58,28 +113,42 @@ class _SettingState extends State<Setting> {
     return Container(
       width: MediaQuery.of(context).size.width * 0.4,
       child: TextFormField(
+        initialValue: temLow,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
+          helperText: 'Current: $temLow',
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(),
           ),
           labelText: 'Temp Low',
         ),
+        onSaved: (String value) {
+          if (value.isNotEmpty) {
+            temLow = value.trim();
+          }
+        },
       ),
     );
   }
 
-  Widget suitableHumi() {
+  Widget suitableHu() {
     return Container(
       width: MediaQuery.of(context).size.width * 0.4,
       child: TextFormField(
+        initialValue: suitableHumi,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
+          helperText: 'Current: $suitableHumi',
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(),
           ),
           labelText: 'Suitable Humidity',
         ),
+        onSaved: (String value) {
+          if (value.isNotEmpty) {
+            suitableHumi = value.trim();
+          }
+        },
       ),
     );
   }
@@ -88,13 +157,20 @@ class _SettingState extends State<Setting> {
     return Container(
       width: MediaQuery.of(context).size.width * 0.4,
       child: TextFormField(
+        initialValue: suitableTem,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
+          helperText: 'current: $suitableTem',
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(),
           ),
           labelText: 'Suitable Temp',
         ),
+        onSaved: (String value) {
+          if (value.isNotEmpty) {
+            suitableTem = value.trim();
+          }
+        },
       ),
     );
   }
@@ -129,7 +205,7 @@ class _SettingState extends State<Setting> {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        suitableHumi(),
+        suitableHu(),
         SizedBox(
           width: 10.0,
         ),
@@ -138,22 +214,67 @@ class _SettingState extends State<Setting> {
     );
   }
 
+  Widget uploadButton() {
+    return RaisedButton.icon(
+      icon: Icon(Icons.cloud_upload),
+      label: Text('Upload Value'),
+      onPressed: () {
+        formKey.currentState.save();
+        editDatabase();
+      },
+    );
+  }
+
+  Future<void> editDatabase()async {
+    print(
+        'HumidityHight =$humHight,HumidityLow = $humLow,TemHight = $temHight,TemLow = $temLow,SuitableHumi =$suitableHumi,SuitableTem=$suitableTem');
+    IotModel myIotModel = IotModel(
+        int.parse(suitableTem),
+        iotModel.water,
+        int.parse(suitableHumi),
+        iotModel.light,
+        iotModel.fog,
+        iotModel.fan,
+        int.parse(humHight),
+        int.parse(humLow),
+        iotModel.mode,
+        int.parse(temHight),
+        int.parse(temLow));
+    Map map = myIotModel.toMap();
+    print('map = $map');
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.instance;
+    DatabaseReference databaseReference = firebaseDatabase.reference().child('IoT');
+    await databaseReference.set(map).then((response){
+      readDatabase();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(top: 50.0),
-      child: Column(
-        children: <Widget>[
-          rowTop(),
-          SizedBox(
-            height: 15.0,
+    return SingleChildScrollView(
+      //แก้แป้นพิมพ์ล้น
+      child: Container(
+        padding: EdgeInsets.only(top: 50.0),
+        child: Form(
+          key: formKey,
+          child: Column(
+            children: <Widget>[
+              rowTop(),
+              SizedBox(
+                height: 15.0,
+              ),
+              rowMiddle(),
+              SizedBox(
+                height: 15.0,
+              ),
+              rowBottom(),
+              SizedBox(
+                height: 15.0,
+              ),
+              uploadButton(),
+            ],
           ),
-          rowMiddle(),
-          SizedBox(
-            height: 15.0,
-          ),
-          rowBottom(),
-        ],
+        ),
       ),
     );
   }

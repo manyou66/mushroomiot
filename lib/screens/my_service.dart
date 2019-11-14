@@ -55,7 +55,7 @@ class _MyServiceState extends State<MyService> {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        appBar: AppBar(
+        appBar: AppBar(centerTitle: true,
           leading: hambergerButton(),
           backgroundColor: Mystyle().textColor,
           title: Text('Smart Mushroom'),
