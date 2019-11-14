@@ -6,10 +6,53 @@ class Control extends StatefulWidget {
 }
 
 class _ControlState extends State<Control> {
+  //Field
+  bool modeBool = false;
+
+  //Method
+  Widget switchMode() {
+    return Switch(
+      value: modeBool,
+      onChanged: (bool value) {
+        changeBool(value);
+      },
+    );
+  }
+
+  void changeBool(bool value) {
+    setState(() {
+      modeBool = value;
+      print('modeBool = $modeBool');
+    });
+  }
+
+  Widget topRow() {
+    return Row(mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        switchMode(),
+        switchMode(),
+      ],
+    );
+  }
+
+  Widget bottonRow() {
+    return Row(mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        switchMode(),
+        switchMode(),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text('This is Control'),
+    return Center(
+      child: Column(mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          topRow(),
+          bottonRow(),
+        ],
+      ),
     );
   }
 }
