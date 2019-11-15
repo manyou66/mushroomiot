@@ -65,8 +65,8 @@ class _MyServiceState extends State<MyService> {
           backgroundColor: Mystyle().textColor,
           title: Text('Smart Mushroom'),
           bottom: TabBar(
-            indicatorColor: Colors.white,
-            indicatorWeight: 6.0,
+            indicatorColor: Colors.orange[300],
+            indicatorWeight: 5.0,
             tabs: <Widget>[
               tabsMonitor(),
               tabsControl(),

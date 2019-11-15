@@ -45,23 +45,25 @@ class _SettingState extends State<Setting> {
   }
 
   Widget humidityHight() {
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.4,
-      child: TextFormField(
-        initialValue: humHight,
-        keyboardType: TextInputType.number,
-        decoration: InputDecoration(
-          helperText: 'Current: $humHight',
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(),
+    return Card(
+          child: Container(
+        width: MediaQuery.of(context).size.width * 0.4,
+        child: TextFormField(
+          initialValue: humHight,
+          keyboardType: TextInputType.number,
+          decoration: InputDecoration(
+            helperText: 'Current: $humHight',helperStyle: Mystyle().red18,
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(),
+            ),
+            labelText: 'Humidity Hight',labelStyle: Mystyle().orange18,
           ),
-          labelText: 'Humidity Hight',
+          onSaved: (String value) {
+            if (value.isNotEmpty) {
+              humHight = value.trim();
+            }
+          },
         ),
-        onSaved: (String value) {
-          if (value.isNotEmpty) {
-            humHight = value.trim();
-          }
-        },
       ),
     );
   }
@@ -77,7 +79,7 @@ class _SettingState extends State<Setting> {
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(),
           ),
-          labelText: 'Humidity Low',
+          labelText: 'Humidity Low',labelStyle: Mystyle().orange18,
         ),
         onSaved: (String value) {
           if (value.isNotEmpty) {
@@ -95,11 +97,11 @@ class _SettingState extends State<Setting> {
         initialValue: temHight,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
-          helperText: 'Current: $temHight',
+          helperText: 'Current: $temHight',helperStyle: Mystyle().red18,
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(),
           ),
-          labelText: 'Temp Hight',
+          labelText: 'Temp Hight',labelStyle: Mystyle().orange18,
         ),
         onSaved: (String value) {
           if (value.isNotEmpty) {
@@ -117,11 +119,11 @@ class _SettingState extends State<Setting> {
         initialValue: temLow,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
-          helperText: 'Current: $temLow',
+          helperText: 'Current: $temLow',helperStyle: Mystyle().red18,
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(),
           ),
-          labelText: 'Temp Low',
+          labelText: 'Temp Low',labelStyle: Mystyle().orange18,
         ),
         onSaved: (String value) {
           if (value.isNotEmpty) {
@@ -139,11 +141,11 @@ class _SettingState extends State<Setting> {
         initialValue: suitableHumi,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
-          helperText: 'Current: $suitableHumi',
+          helperText: 'Current: $suitableHumi',helperStyle: Mystyle().red18,
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(),
           ),
-          labelText: 'Suitable Humidity',
+          labelText: 'Suitable Humi',labelStyle: Mystyle().orange18,
         ),
         onSaved: (String value) {
           if (value.isNotEmpty) {
@@ -161,11 +163,11 @@ class _SettingState extends State<Setting> {
         initialValue: suitableTem,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
-          helperText: 'current: $suitableTem',
+          helperText: 'current: $suitableTem',helperStyle: Mystyle().red18,
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(),
           ),
-          labelText: 'Suitable Temp',
+          labelText: 'Suitable Temp',labelStyle: Mystyle().orange18,
         ),
         onSaved: (String value) {
           if (value.isNotEmpty) {
@@ -216,9 +218,9 @@ class _SettingState extends State<Setting> {
   }
 
   Widget uploadButton() {
-    return RaisedButton.icon(
+    return RaisedButton.icon(textColor: Mystyle().textColor,
       icon: Icon(Icons.cloud_upload),
-      label: Text('Upload Value'),
+      label: Text('Upload Value',style: Mystyle().red18),
       onPressed: () {
         formKey.currentState.save();
         editDatabase();

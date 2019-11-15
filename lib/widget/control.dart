@@ -1,6 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:wanmushroom/models/iot%3Emodel.dart';
+import 'package:wanmushroom/utility/my_style.dart';
 
 class Control extends StatefulWidget {
   @override
@@ -75,16 +76,16 @@ class _ControlState extends State<Control> {
   }
 
   Widget switchMode() {
-    return Card(
+    return Card(color: Mystyle().pink50,
       //กรอบล้อมรอบ
       child: Container(
         padding: EdgeInsets.all(15.0),
         child: Column(
           children: <Widget>[
-            Text('Mode'),
+            Text('Mode',style: Mystyle().red18),
             Row(
               children: <Widget>[
-                Text('Auto'),
+                Text('Auto',style: Mystyle().orange18,),
                 Switch(
                   value: modeBool,
                   onChanged: (bool value) {
@@ -97,7 +98,7 @@ class _ControlState extends State<Control> {
                     }
                   },
                 ),
-                Text('Manual'),
+                Text('Manual',style: Mystyle().orange18,),
               ],
             ),
           ],
@@ -107,16 +108,16 @@ class _ControlState extends State<Control> {
   }
 
   Widget switchFog() {
-    return Card(
+    return Card(color: Mystyle().pink50,
       //กรอบล้อมรอบ
       child: Container(
         padding: EdgeInsets.all(15.0),
         child: Column(
           children: <Widget>[
-            Text('Fog'),
+            Text('Fog',style: Mystyle().red18),
             Row(
               children: <Widget>[
-                Text('OFF'),
+                Text('OFF',style: Mystyle().orange18,),
                 Switch(
                   value: fogBool,
                   onChanged: (bool value) {
@@ -129,7 +130,7 @@ class _ControlState extends State<Control> {
                     }
                   },
                 ),
-                Text('ON'),
+                Text('ON',style: Mystyle().orange18,),
               ],
             ),
           ],
@@ -139,16 +140,16 @@ class _ControlState extends State<Control> {
   }
 
   Widget switchFan() {
-    return Card(
+    return Card(color: Mystyle().pink50,
       //กรอบล้อมรอบ
       child: Container(
         padding: EdgeInsets.all(15.0),
         child: Column(
           children: <Widget>[
-            Text('Fan'),
+            Text('Fan',style: Mystyle().red18),
             Row(
               children: <Widget>[
-                Text('OFF'),
+                Text('OFF',style: Mystyle().orange18,),
                 Switch(
                   value: fanBool,
                   onChanged: (bool value) {
@@ -161,7 +162,7 @@ class _ControlState extends State<Control> {
                     }
                   },
                 ),
-                Text('ON'),
+                Text('ON',style: Mystyle().orange18,),
               ],
             ),
           ],
@@ -171,16 +172,16 @@ class _ControlState extends State<Control> {
   }
 
   Widget switchWater() {
-    return Card(
+    return Card(color: Mystyle().pink50,
       //กรอบล้อมรอบ
       child: Container(
         padding: EdgeInsets.all(15.0),
         child: Column(
           children: <Widget>[
-            Text('Water'),
+            Text('Water',style: Mystyle().red18),
             Row(
               children: <Widget>[
-                Text('OFF'),
+                Text('OFF',style: Mystyle().orange18,),
                 Switch(
                   value: waterBool,
                   onChanged: (bool value) {
@@ -193,7 +194,7 @@ class _ControlState extends State<Control> {
                     }
                   },
                 ),
-                Text('ON'),
+                Text('ON',style: Mystyle().orange18,),
               ],
             ),
           ],
@@ -204,7 +205,7 @@ class _ControlState extends State<Control> {
 
   Widget switchLight() {
     return Card(
-      color: Colors.blue[300],
+      color: Mystyle().pink50,
       //กรอบล้อมรอบ
       child: Container(
         padding: EdgeInsets.all(15.0),
@@ -212,11 +213,11 @@ class _ControlState extends State<Control> {
           children: <Widget>[
             Text(
               'Light',
-              style: TextStyle(color: Colors.white),
+              style: Mystyle().red18,
             ),
             Row(
               children: <Widget>[
-                Text('OFF'),
+                Text('OFF',style: Mystyle().orange18,),
                 Switch(
                   value: lightBool,
                   onChanged: (bool value) {
@@ -229,7 +230,7 @@ class _ControlState extends State<Control> {
                     }
                   },
                 ),
-                Text('ON'),
+                Text('ON',style: Mystyle().orange18,),
               ],
             ),
           ],
