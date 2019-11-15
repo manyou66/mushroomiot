@@ -1,7 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:wanmushroom/screens/home.dart';
 import 'package:wanmushroom/utility/my_style.dart';
+import 'package:wanmushroom/widget/add_display_name.dart';
 import 'package:wanmushroom/widget/control.dart';
+import 'package:wanmushroom/widget/home_service.dart';
 import 'package:wanmushroom/widget/monitor.dart';
+import 'package:wanmushroom/widget/page2.dart';
+import 'package:wanmushroom/widget/page3.dart';
 import 'package:wanmushroom/widget/setting.dart';
 
 class MyService extends StatefulWidget {
@@ -13,6 +20,7 @@ class _MyServiceState extends State<MyService> {
   //Field
   final scaffoldKey = GlobalKey<ScaffoldState>();
   String login = '...';
+  Widget currentWidget = HomeService();
 
   //Method
   //ขีดสามขีดข้างจอ
@@ -83,6 +91,11 @@ class _MyServiceState extends State<MyService> {
       child: ListView(
         children: <Widget>[
           showHead(),
+          menuHome(),
+          menuAddDisplayName(),
+          menuPage2(),
+          menuPage3(),
+          menuSignOut(),
         ],
       ),
     );
@@ -92,8 +105,7 @@ class _MyServiceState extends State<MyService> {
     return DrawerHeader(
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('images/wall.jpg'),fit: BoxFit.cover
-        ),
+            image: AssetImage('images/logo2.jpg'), fit: BoxFit.cover),
       ),
       child: Column(
         children: <Widget>[showLogo(), showAppName(), showLogin()],
@@ -109,18 +121,119 @@ class _MyServiceState extends State<MyService> {
   }
 
   Widget showAppName() {
-    return Text('Smart Mushroom');
+    return Text(
+      'Smart Mushroom',
+      style: Mystyle().red18,
+    );
   }
 
   Widget showLogin() {
-    return Text('User: $login');
+    return Text(
+      'User: $login,',
+      style: Mystyle().red18,
+    );
+  }
+
+  Widget menuAddDisplayName() {
+    return ListTile(
+      leading: Icon(
+        Icons.filter_1,
+      ),
+      title: Text('Add Display Name'),
+      subtitle: Text('Add of Change Display Name'),
+      onTap: () {
+        Navigator.of(context).pop();
+        setState(() {
+          currentWidget = AddDisplayName();
+        });
+      },
+    );
+  }
+
+  Widget menuPage2() {
+    return ListTile(
+      leading: Icon(
+        Icons.filter_2,
+      ),
+      title: Text('Page2'),
+      subtitle: Text('Description Page 2'),
+      onTap: () {
+        Navigator.of(context).pop();
+        setState(() {
+          currentWidget = Page2();
+        });
+      },
+    );
+  }
+
+  Widget menuPage3() {
+    return ListTile(
+      leading: Icon(
+        Icons.filter_3,
+      ),
+      title: Text('Page3'),
+      subtitle: Text('Description Page 3'),
+      onTap: () {
+        Navigator.of(context).pop();
+        setState(() {
+          currentWidget = Page3();
+        });
+      },
+    );
+  }
+
+  Widget menuSignOut() {
+    return ListTile(
+      leading: Icon(
+        Icons.exit_to_app,
+      ),
+      title: Text('Logout'),
+      subtitle: Text('Logout'),
+      onTap: () {
+        Navigator.of(context).pop();
+        processLogOut();
+      },
+    );
+  }
+
+  Future<void> processLogOut() async {
+    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    await firebaseAuth.signOut().then((response) {
+      MaterialPageRoute materialPageRoute =
+          MaterialPageRoute(builder: (BuildContext context) {
+        return Home();
+      });
+      Navigator.of(context).pushAndRemoveUntil(materialPageRoute,
+          (Route<dynamic> route) {
+        return false;
+      });
+    });
+  }
+
+  Widget menuHome() {
+    return ListTile(
+      leading: Icon(
+        Icons.home,
+      ),
+      title: Text('Home'),
+      subtitle: Text('Description home'),
+      onTap: () {
+        Navigator.of(context).pop();
+        setState(() {
+          currentWidget = HomeService();
+        });
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('My Service'),
+      ),
       key: scaffoldKey,
-      body: showTabController(),
+      body: currentWidget,
       drawer: showDrawer(), //แฝงด้านข้างขวา
     );
   }

@@ -232,7 +232,7 @@ class _SettingState extends State<Setting> {
     IotModel myIotModel = IotModel(
         int.parse(suitableTem),
         iotModel.water,
-        int.parse(suitableHumi),
+        int.parse(suitableHumi), //convert string to int
         iotModel.light,
         iotModel.fog,
         iotModel.fan,
