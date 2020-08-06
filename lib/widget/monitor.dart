@@ -21,7 +21,19 @@ class _MonitorState extends State<Monitor> {
       url4 =
           'https://thingspeak.com/channels/662286/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15',
       humiGageUrl = 'https://thingspeak.com/channels/662286/widgets/93495',
-      temGageUrl = 'https://thingspeak.com/channels/662286/widgets/93565';
+      temGageUrl = 'https://thingspeak.com/channels/662286/widgets/93565',
+      humi_inside =
+          'https://thingspeak.com/channels/662286/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line',
+      temp_inside =
+          'https://thingspeak.com/channels/662286/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line',
+      humi_outside =
+          'https://thingspeak.com/channels/662286/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15',
+      temp_outside =
+          'https://thingspeak.com/channels/662286/charts/4?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15',
+      carbon =
+          'https://thingspeak.com/channels/662286/charts/6?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15',
+      light =
+          'https://thingspeak.com/channels/662286/charts/5?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15';
 
   String test1 = 'https://www.androidthai.in.th/pint/test1.html';
   String test2 = 'https://www.androidthai.in.th';
@@ -93,11 +105,11 @@ class _MonitorState extends State<Monitor> {
     );
   }
 
-  WebController webController;
+  WebController webController, webControllerGadeTem;
 
-  void onWebCreated(webController) {
+  void onWebCreatedCarboninside(webController) {
     this.webController = webController;
-    this.webController.loadUrl(url1);
+    this.webController.loadUrl(carbon);
     this.webController.onPageStarted.listen((url) => print("Loading $url"));
     this
         .webController
@@ -105,7 +117,78 @@ class _MonitorState extends State<Monitor> {
         .listen((url) => print("Finished loading $url"));
   }
 
-  
+  void onWebCreatedLightinside(webController) {
+    this.webController = webController;
+    this.webController.loadUrl(light);
+    this.webController.onPageStarted.listen((url) => print("Loading $url"));
+    this
+        .webController
+        .onPageFinished
+        .listen((url) => print("Finished loading $url"));
+  }
+
+  void onWebCreatedTempOutside(webController) {
+    this.webController = webController;
+    this.webController.loadUrl(temp_outside);
+    this.webController.onPageStarted.listen((url) => print("Loading $url"));
+    this
+        .webController
+        .onPageFinished
+        .listen((url) => print("Finished loading $url"));
+  }
+
+  void onWebCreatedHumiOutside(webController) {
+    this.webController = webController;
+    this.webController.loadUrl(humi_outside);
+    this.webController.onPageStarted.listen((url) => print("Loading $url"));
+    this
+        .webController
+        .onPageFinished
+        .listen((url) => print("Finished loading $url"));
+  }
+
+  void onWebCreatedTempInside(webController) {
+    this.webController = webController;
+    this.webController.loadUrl(temp_inside);
+    this.webController.onPageStarted.listen((url) => print("Loading $url"));
+    this
+        .webController
+        .onPageFinished
+        .listen((url) => print("Finished loading $url"));
+  }
+
+  void onWebCreatedHumiInside(webController) {
+    this.webController = webController;
+    this.webController.loadUrl(humi_inside);
+    this.webController.onPageStarted.listen((url) => print("Loading $url"));
+    this
+        .webController
+        .onPageFinished
+        .listen((url) => print("Finished loading $url"));
+  }
+
+  void onWebCreated(webController) {
+    this.webController = webController;
+    this.webController.loadUrl(humiGageUrl);
+    this.webController.onPageStarted.listen((url) => print("Loading $url"));
+    this
+        .webController
+        .onPageFinished
+        .listen((url) => print("Finished loading $url"));
+  }
+
+  void onWebCreatedGadeTemperature(webController) {
+    this.webControllerGadeTem = webController;
+    this.webControllerGadeTem.loadUrl(temGageUrl);
+    this
+        .webControllerGadeTem
+        .onPageStarted
+        .listen((url) => print("Loading $url"));
+    this
+        .webControllerGadeTem
+        .onPageFinished
+        .listen((url) => print("Finished loading $url"));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,20 +200,118 @@ class _MonitorState extends State<Monitor> {
         ),
       ].toSet(),
     );
+    FlutterNativeWeb flutterWebViewGadeTem = new FlutterNativeWeb(
+      onWebCreated: onWebCreatedGadeTemperature,
+      gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>[
+        Factory<OneSequenceGestureRecognizer>(
+          () => TapGestureRecognizer(),
+        ),
+      ].toSet(),
+    );
 
-    
+    FlutterNativeWeb flutterWebViewHumiInside = new FlutterNativeWeb(
+      onWebCreated: onWebCreatedHumiInside,
+      gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>[
+        Factory<OneSequenceGestureRecognizer>(
+          () => TapGestureRecognizer(),
+        ),
+      ].toSet(),
+    );
+
+    FlutterNativeWeb flutterWebViewTempInside = new FlutterNativeWeb(
+      onWebCreated: onWebCreatedTempInside,
+      gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>[
+        Factory<OneSequenceGestureRecognizer>(
+          () => TapGestureRecognizer(),
+        ),
+      ].toSet(),
+    );
+
+    FlutterNativeWeb flutterWebViewTempOutside = new FlutterNativeWeb(
+      onWebCreated: onWebCreatedTempOutside,
+      gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>[
+        Factory<OneSequenceGestureRecognizer>(
+          () => TapGestureRecognizer(),
+        ),
+      ].toSet(),
+    );
+
+    FlutterNativeWeb flutterWebViewHumiOutside = new FlutterNativeWeb(
+      onWebCreated: onWebCreatedHumiOutside,
+      gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>[
+        Factory<OneSequenceGestureRecognizer>(
+          () => TapGestureRecognizer(),
+        ),
+      ].toSet(),
+    );
+
+    FlutterNativeWeb flutterWebViewCarboninside = new FlutterNativeWeb(
+      onWebCreated: onWebCreatedCarboninside,
+      gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>[
+        Factory<OneSequenceGestureRecognizer>(
+          () => TapGestureRecognizer(),
+        ),
+      ].toSet(),
+    );
+
+    FlutterNativeWeb flutterWebViewLightinside = new FlutterNativeWeb(
+      onWebCreated: onWebCreatedLightinside,
+      gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>[
+        Factory<OneSequenceGestureRecognizer>(
+          () => TapGestureRecognizer(),
+        ),
+      ].toSet(),
+    );
 
     return Scaffold(
       body: ListView(
         children: <Widget>[
-          Container(
-            child: Text('Test'),
-          ),Container(
-            child: flutterWebView,
-            height: 300.0,
-            width: 500.0,
+          // Container(
+          // child: Text('Test'),
+          Column(
+            children: <Widget>[
+              Container(
+                child: flutterWebView,
+                height: 300.0,
+                width: 500.0,
+              ),
+              Container(
+                child: flutterWebViewGadeTem,
+                height: 300.0,
+                width: 500.0,
+              ),
+              Container(
+                child: flutterWebViewHumiInside,
+                height: 300.0,
+                width: 500.0,
+              ),
+              Container(
+                child: flutterWebViewTempInside,
+                height: 300.0,
+                width: 500.0,
+              ),
+              Container(
+                child: flutterWebViewTempOutside,
+                height: 300.0,
+                width: 500.0,
+              ),
+              Container(
+                child: flutterWebViewHumiOutside,
+                height: 300.0,
+                width: 500.0,
+              ),
+              Container(
+                child: flutterWebViewCarboninside,
+                height: 300.0,
+                width: 500.0,
+              ),
+              Container(
+                child: flutterWebViewLightinside,
+                height: 300.0,
+                width: 500.0,
+              )
+            ],
           ),
-          
         ],
       ),
     );

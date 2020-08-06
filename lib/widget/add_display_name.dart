@@ -12,7 +12,7 @@ class _AddDisplayNameState extends State<AddDisplayName> {
 
   //Method
   @override
-  void inintState() {
+  void initState() {
     super.initState();
     findDisplay();
   }
