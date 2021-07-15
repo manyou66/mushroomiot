@@ -97,7 +97,7 @@ class _SettingState extends State<Setting> {
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(),
             ),
-            labelText: 'FanOff Duration',
+            labelText: 'Fan Off',
             labelStyle: Mystyle().orange18,
           ),
           onSaved: (String value) {
@@ -123,7 +123,7 @@ class _SettingState extends State<Setting> {
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(),
             ),
-            labelText: 'FanOn Duration',
+            labelText: 'Fan On',
             labelStyle: Mystyle().orange18,
           ),
           onSaved: (String value) {
@@ -149,7 +149,7 @@ class _SettingState extends State<Setting> {
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(),
             ),
-            labelText: 'FogOff Duration',
+            labelText: 'Fog Off',
             labelStyle: Mystyle().orange18,
           ),
           onSaved: (String value) {
@@ -174,7 +174,7 @@ class _SettingState extends State<Setting> {
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(),
           ),
-          labelText: 'FogOn Duration',
+          labelText: 'Fog On',
           labelStyle: Mystyle().orange18,
         ),
         onSaved: (String value) {
@@ -222,7 +222,7 @@ class _SettingState extends State<Setting> {
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(),
           ),
-          labelText: 'Suitable Humi High',
+          labelText: 'Suit Humi High',
           labelStyle: Mystyle().orange18,
         ),
         onSaved: (String value) {
