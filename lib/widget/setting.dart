@@ -11,12 +11,19 @@ class Setting extends StatefulWidget {
 class _SettingState extends State<Setting> {
   // Field
   IotModel iotModel;
-  String humHight = '',
-      humLow = '',
-      temHight = '',
-      temLow = '',
+  String //humHight = '',
+      // humLow = '',
+      // temHight = '',
+      //temLow = '',
       suitableTem = '',
-      suitableHumi = '';
+      suitableHumi = '',
+      suitable_Humi_High = '',
+      waterFloorDuration = '',
+      humi_Out = '',
+      fogOff_Duration = '',
+      fogOn_Duration = '',
+      fanOff_Duration = '',
+      fanOn_Duration = '';
 
   final formKey = GlobalKey<FormState>();
 
@@ -34,33 +41,42 @@ class _SettingState extends State<Setting> {
     await databaseReference.once().then((DataSnapshot dataSnapshot) {
       setState(() {
         iotModel = IotModel.formMap(dataSnapshot.value);
-        humLow = iotModel.humidityLow.toString();
-        humHight = iotModel.humidityHigh.toString();
-        temHight = iotModel.tempHigh.toString();
-        temLow = iotModel.tempLow.toString();
+        // humLow = iotModel.humidityLow.toString();
+        //  humHight = iotModel.humidityHigh.toString();
+        //  temHight = iotModel.tempHigh.toString();
+        //  temLow = iotModel.tempLow.toString();
         suitableTem = iotModel.suitableTem.toString();
         suitableHumi = iotModel.suitableHumi.toString();
+        suitable_Humi_High = iotModel.suitable_Humi_High.toString();
+        waterFloorDuration = iotModel.waterFloorDuration.toString();
+        humi_Out = iotModel.humi_Out.toString();
+        fogOff_Duration = iotModel.fogOff_Duration.toString();
+        fogOn_Duration = iotModel.fogOn_Duration.toString();
+        fanOff_Duration = iotModel.fanOff_Duration.toString();
+        fanOn_Duration = iotModel.fanOn_Duration.toString();
       });
     });
   }
 
-  Widget humidityHight() {
+  Widget waterFloorDura() {
     return Card(
-          child: Container(
+      child: Container(
         width: MediaQuery.of(context).size.width * 0.4,
         child: TextFormField(
-          initialValue: humHight,
+          initialValue: waterFloorDuration,
           keyboardType: TextInputType.number,
           decoration: InputDecoration(
-            helperText: 'Current: $humHight',helperStyle: Mystyle().red18,
+            helperText: 'Current: $waterFloorDuration',
+            helperStyle: Mystyle().red18,
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(),
             ),
-            labelText: 'Humidity Hight',labelStyle: Mystyle().orange18,
+            labelText: 'WaterFloor Duration',
+            labelStyle: Mystyle().orange18,
           ),
           onSaved: (String value) {
             if (value.isNotEmpty) {
-              humHight = value.trim();
+              waterFloorDuration = value.trim();
             }
           },
         ),
@@ -68,66 +84,150 @@ class _SettingState extends State<Setting> {
     );
   }
 
-  Widget humidityLow() {
+  Widget fanOffDuration() {
+    return Card(
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.4,
+        child: TextFormField(
+          initialValue: fanOff_Duration,
+          keyboardType: TextInputType.number,
+          decoration: InputDecoration(
+            helperText: 'Current: $fanOff_Duration',
+            helperStyle: Mystyle().red18,
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(),
+            ),
+            labelText: 'FanOff Duration',
+            labelStyle: Mystyle().orange18,
+          ),
+          onSaved: (String value) {
+            if (value.isNotEmpty) {
+              fanOff_Duration = value.trim();
+            }
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget fanOnDuration() {
+    return Card(
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.4,
+        child: TextFormField(
+          initialValue: fanOn_Duration,
+          keyboardType: TextInputType.number,
+          decoration: InputDecoration(
+            helperText: 'Current: $fanOn_Duration',
+            helperStyle: Mystyle().red18,
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(),
+            ),
+            labelText: 'FanOn Duration',
+            labelStyle: Mystyle().orange18,
+          ),
+          onSaved: (String value) {
+            if (value.isNotEmpty) {
+              fanOn_Duration = value.trim();
+            }
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget fogOffDuration() {
+    return Card(
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.4,
+        child: TextFormField(
+          initialValue: fogOff_Duration,
+          keyboardType: TextInputType.number,
+          decoration: InputDecoration(
+            helperText: 'Current: $fogOff_Duration',
+            helperStyle: Mystyle().red18,
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(),
+            ),
+            labelText: 'FogOff Duration',
+            labelStyle: Mystyle().orange18,
+          ),
+          onSaved: (String value) {
+            if (value.isNotEmpty) {
+              fogOff_Duration = value.trim();
+            }
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget fogOnDuration() {
     return Container(
       width: MediaQuery.of(context).size.width * 0.4,
       child: TextFormField(
-        initialValue: humLow,
+        initialValue: fogOn_Duration,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
-          helperText: 'Current: $humLow',helperStyle: Mystyle().red18,
+          helperText: 'Current: $fogOn_Duration',
+          helperStyle: Mystyle().red18,
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(),
           ),
-          labelText: 'Humidity Low',labelStyle: Mystyle().orange18,
+          labelText: 'FogOn Duration',
+          labelStyle: Mystyle().orange18,
         ),
         onSaved: (String value) {
           if (value.isNotEmpty) {
-            humLow = value.trim();
+            fogOn_Duration = value.trim();
           }
         },
       ),
     );
   }
 
-  Widget tempHight() {
+  Widget humiOut() {
     return Container(
       width: MediaQuery.of(context).size.width * 0.4,
       child: TextFormField(
-        initialValue: temHight,
+        initialValue: humi_Out,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
-          helperText: 'Current: $temHight',helperStyle: Mystyle().red18,
+          helperText: 'Current: $humi_Out',
+          helperStyle: Mystyle().red18,
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(),
           ),
-          labelText: 'Temp Hight',labelStyle: Mystyle().orange18,
+          labelText: 'Humidity Out',
+          labelStyle: Mystyle().orange18,
         ),
         onSaved: (String value) {
           if (value.isNotEmpty) {
-            temHight = value.trim();
+            humi_Out = value.trim();
           }
         },
       ),
     );
   }
 
-  Widget tempLow() {
+  Widget suitableHumiHigh() {
     return Container(
       width: MediaQuery.of(context).size.width * 0.4,
       child: TextFormField(
-        initialValue: temLow,
+        initialValue: suitable_Humi_High,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
-          helperText: 'Current: $temLow',helperStyle: Mystyle().red18,
+          helperText: 'Current: $suitable_Humi_High',
+          helperStyle: Mystyle().red18,
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(),
           ),
-          labelText: 'Temp Low',labelStyle: Mystyle().orange18,
+          labelText: 'Suitable Humi High',
+          labelStyle: Mystyle().orange18,
         ),
         onSaved: (String value) {
           if (value.isNotEmpty) {
-            temLow = value.trim();
+            suitable_Humi_High = value.trim();
           }
         },
       ),
@@ -141,11 +241,13 @@ class _SettingState extends State<Setting> {
         initialValue: suitableHumi,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
-          helperText: 'Current: $suitableHumi',helperStyle: Mystyle().red18,
+          helperText: 'Current: $suitableHumi',
+          helperStyle: Mystyle().red18,
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(),
           ),
-          labelText: 'Suitable Humi',labelStyle: Mystyle().orange18,
+          labelText: 'Suitable Humi',
+          labelStyle: Mystyle().orange18,
         ),
         onSaved: (String value) {
           if (value.isNotEmpty) {
@@ -163,11 +265,13 @@ class _SettingState extends State<Setting> {
         initialValue: suitableTem,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
-          helperText: 'current: $suitableTem',helperStyle: Mystyle().red18,
+          helperText: 'current: $suitableTem',
+          helperStyle: Mystyle().red18,
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(),
           ),
-          labelText: 'Suitable Temp',labelStyle: Mystyle().orange18,
+          labelText: 'Suitable Temp',
+          labelStyle: Mystyle().orange18,
         ),
         onSaved: (String value) {
           if (value.isNotEmpty) {
@@ -178,33 +282,7 @@ class _SettingState extends State<Setting> {
     );
   }
 
-  Widget rowTop() {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        humidityLow(),
-        SizedBox(
-          width: 10.0,
-        ),
-        humidityHight()
-      ],
-    );
-  }
-
-  Widget rowMiddle() {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        tempLow(),
-        SizedBox(
-          width: 10.0,
-        ),
-        tempHight()
-      ],
-    );
-  }
-
-  Widget rowBottom() {
+  Widget row1() {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
@@ -212,15 +290,68 @@ class _SettingState extends State<Setting> {
         SizedBox(
           width: 10.0,
         ),
-        suitableTemp()
+        suitableHumiHigh()
+      ],
+    );
+  }
+
+  Widget row2() {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        suitableTemp(),
+        SizedBox(
+          width: 10.0,
+        ),
+        humiOut()
+      ],
+    );
+  }
+
+  Widget row3() {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        fogOnDuration(),
+        SizedBox(
+          width: 10.0,
+        ),
+        fogOffDuration()
+      ],
+    );
+  }
+
+  Widget row4() {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        fanOnDuration(),
+        SizedBox(
+          width: 10.0,
+        ),
+        fanOffDuration()
+      ],
+    );
+  }
+
+  Widget row5() {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        waterFloorDura(),
+        SizedBox(
+          width: 10.0,
+        ),
+        uploadButton()
       ],
     );
   }
 
   Widget uploadButton() {
-    return RaisedButton.icon(textColor: Mystyle().textColor,
+    return RaisedButton.icon(
+      textColor: Mystyle().textColor,
       icon: Icon(Icons.cloud_upload),
-      label: Text('Upload Value',style: Mystyle().red18),
+      label: Text('Upload Value', style: Mystyle().red18),
       onPressed: () {
         formKey.currentState.save();
         editDatabase();
@@ -228,9 +359,9 @@ class _SettingState extends State<Setting> {
     );
   }
 
-  Future<void> editDatabase()async {
-    print(
-        'HumidityHight =$humHight,HumidityLow = $humLow,TemHight = $temHight,TemLow = $temLow,SuitableHumi =$suitableHumi,SuitableTem=$suitableTem');
+  Future<void> editDatabase() async {
+    //print(
+    //    'HumidityHight =$humHight,HumidityLow = $humLow,TemHight = $temHight,TemLow = $temLow,SuitableHumi =$suitableHumi,SuitableTem=$suitableTem');
     IotModel myIotModel = IotModel(
         int.parse(suitableTem),
         iotModel.water,
@@ -238,16 +369,20 @@ class _SettingState extends State<Setting> {
         iotModel.light,
         iotModel.fog,
         iotModel.fan,
-        int.parse(humHight),
-        int.parse(humLow),
+        int.parse(fanOff_Duration),
+        int.parse(fanOn_Duration),
         iotModel.mode,
-        int.parse(temHight),
-        int.parse(temLow));
+        int.parse(fogOff_Duration),
+        int.parse(fogOn_Duration),
+        int.parse(suitable_Humi_High),
+        int.parse(waterFloorDuration),
+        int.parse(humi_Out));
     Map map = myIotModel.toMap();
     print('map = $map');
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.instance;
-    DatabaseReference databaseReference = firebaseDatabase.reference().child('IoT');
-    await databaseReference.set(map).then((response){
+    DatabaseReference databaseReference =
+        firebaseDatabase.reference().child('IoT');
+    await databaseReference.set(map).then((response) {
       readDatabase();
     });
   }
@@ -257,24 +392,32 @@ class _SettingState extends State<Setting> {
     return SingleChildScrollView(
       //แก้แป้นพิมพ์ล้น
       child: Container(
-        padding: EdgeInsets.only(top: 50.0),
+        padding: EdgeInsets.only(top: 15.0),
         child: Form(
           key: formKey,
           child: Column(
             children: <Widget>[
-              rowTop(),
+              row1(),
               SizedBox(
                 height: 15.0,
               ),
-              rowMiddle(),
+              row2(),
               SizedBox(
                 height: 15.0,
               ),
-              rowBottom(),
+              row3(),
               SizedBox(
                 height: 15.0,
               ),
-              uploadButton(),
+              row4(),
+              SizedBox(
+                height: 15.0,
+              ),
+              row5(),
+              SizedBox(
+                height: 15.0,
+              ),
+              // uploadButton(),
             ],
           ),
         ),

@@ -20,20 +20,20 @@ class _MonitorState extends State<Monitor> {
           'https://thingspeak.com/channels/437885/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line',
       url4 =
           'https://thingspeak.com/channels/662286/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15',
-      humiGageUrl = 'https://thingspeak.com/channels/662286/widgets/93495',
-      temGageUrl = 'https://thingspeak.com/channels/662286/widgets/93565',
+      humiGageUrl = 'https://thingspeak.com/channels/1156793/widgets/294248',
+      temGageUrl = 'https://thingspeak.com/channels/1156793/widgets/294249',
       humi_inside =
-          'https://thingspeak.com/channels/662286/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line',
+          'https://thingspeak.com/channels/1156793/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15',
       temp_inside =
-          'https://thingspeak.com/channels/662286/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line',
+          'https://thingspeak.com/channels/1156793/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15',
       humi_outside =
-          'https://thingspeak.com/channels/662286/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15',
+          'https://thingspeak.com/channels/1156793/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15',
       temp_outside =
           'https://thingspeak.com/channels/662286/charts/4?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15',
       carbon =
-          'https://thingspeak.com/channels/662286/charts/6?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15',
+          'https://thingspeak.com/channels/1156793/charts/6?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15',
       light =
-          'https://thingspeak.com/channels/662286/charts/5?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15';
+          'https://thingspeak.com/channels/1156793/charts/5?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15';
 
   String test1 = 'https://www.androidthai.in.th/pint/test1.html';
   String test2 = 'https://www.androidthai.in.th';

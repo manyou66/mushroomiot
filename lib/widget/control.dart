@@ -40,6 +40,8 @@ class _ControlState extends State<Control> {
       fanInt = iotModel.fan;
       waterInt = iotModel.water;
       lightInt = iotModel.light;
+
+
       checkSwitch();
     });
   }
@@ -77,16 +79,20 @@ class _ControlState extends State<Control> {
   }
 
   Widget switchMode() {
-    return Card(color: Mystyle().pink50,
+    return Card(
+      color: Mystyle().pink50,
       //กรอบล้อมรอบ
       child: Container(
         padding: EdgeInsets.all(15.0),
         child: Column(
           children: <Widget>[
-            Text('Mode',style: Mystyle().red18),
+            Text('Mode', style: Mystyle().red18),
             Row(
               children: <Widget>[
-                Text('Auto',style: Mystyle().orange18,),
+                Text(
+                  'Manual',
+                  style: Mystyle().orange18,
+                ),
                 Switch(
                   value: modeBool,
                   onChanged: (bool value) {
@@ -99,7 +105,10 @@ class _ControlState extends State<Control> {
                     }
                   },
                 ),
-                Text('Manual',style: Mystyle().orange18,),
+                Text(
+                  'Auto',
+                  style: Mystyle().orange18,
+                ),
               ],
             ),
           ],
@@ -109,16 +118,20 @@ class _ControlState extends State<Control> {
   }
 
   Widget switchFog() {
-    return Card(color: Mystyle().pink50,
+    return Card(
+      color: Mystyle().pink50,
       //กรอบล้อมรอบ
       child: Container(
         padding: EdgeInsets.all(15.0),
         child: Column(
           children: <Widget>[
-            Text('Fog',style: Mystyle().red18),
+            Text('Fog', style: Mystyle().red18),
             Row(
               children: <Widget>[
-                Text('OFF',style: Mystyle().orange18,),
+                Text(
+                  'OFF',
+                  style: Mystyle().orange18,
+                ),
                 Switch(
                   value: fogBool,
                   onChanged: (bool value) {
@@ -131,7 +144,10 @@ class _ControlState extends State<Control> {
                     }
                   },
                 ),
-                Text('ON',style: Mystyle().orange18,),
+                Text(
+                  'ON',
+                  style: Mystyle().orange18,
+                ),
               ],
             ),
           ],
@@ -141,16 +157,20 @@ class _ControlState extends State<Control> {
   }
 
   Widget switchFan() {
-    return Card(color: Mystyle().pink50,
+    return Card(
+      color: Mystyle().pink50,
       //กรอบล้อมรอบ
       child: Container(
         padding: EdgeInsets.all(15.0),
         child: Column(
           children: <Widget>[
-            Text('Fan',style: Mystyle().red18),
+            Text('Fan', style: Mystyle().red18),
             Row(
               children: <Widget>[
-                Text('OFF',style: Mystyle().orange18,),
+                Text(
+                  'OFF',
+                  style: Mystyle().orange18,
+                ),
                 Switch(
                   value: fanBool,
                   onChanged: (bool value) {
@@ -163,7 +183,10 @@ class _ControlState extends State<Control> {
                     }
                   },
                 ),
-                Text('ON',style: Mystyle().orange18,),
+                Text(
+                  'ON',
+                  style: Mystyle().orange18,
+                ),
               ],
             ),
           ],
@@ -173,16 +196,20 @@ class _ControlState extends State<Control> {
   }
 
   Widget switchWater() {
-    return Card(color: Mystyle().pink50,
+    return Card(
+      color: Mystyle().pink50,
       //กรอบล้อมรอบ
       child: Container(
         padding: EdgeInsets.all(15.0),
         child: Column(
           children: <Widget>[
-            Text('Water',style: Mystyle().red18),
+            Text('Water Floor', style: Mystyle().red18),
             Row(
               children: <Widget>[
-                Text('OFF',style: Mystyle().orange18,),
+                Text(
+                  'OFF',
+                  style: Mystyle().orange18,
+                ),
                 Switch(
                   value: waterBool,
                   onChanged: (bool value) {
@@ -195,7 +222,10 @@ class _ControlState extends State<Control> {
                     }
                   },
                 ),
-                Text('ON',style: Mystyle().orange18,),
+                Text(
+                  'ON',
+                  style: Mystyle().orange18,
+                ),
               ],
             ),
           ],
@@ -218,7 +248,10 @@ class _ControlState extends State<Control> {
             ),
             Row(
               children: <Widget>[
-                Text('OFF',style: Mystyle().orange18,),
+                Text(
+                  'OFF',
+                  style: Mystyle().orange18,
+                ),
                 Switch(
                   value: lightBool,
                   onChanged: (bool value) {
@@ -231,7 +264,10 @@ class _ControlState extends State<Control> {
                     }
                   },
                 ),
-                Text('ON',style: Mystyle().orange18,),
+                Text(
+                  'ON',
+                  style: Mystyle().orange18,
+                ),
               ],
             ),
           ],
@@ -245,19 +281,26 @@ class _ControlState extends State<Control> {
     DatabaseReference databaseReference =
         firebaseDatabase.reference().child('IoT');
     Map<dynamic, dynamic> map = Map();
-    map['Water'] = waterInt;
+    map['Water_Floor'] = waterInt;
     map['Fan'] = fanInt;
-    map['Temp_High'] = iotModel.tempHigh;
-    map['Humidity_High'] = iotModel.humidityHigh;
-    map['Humidity_Low'] = iotModel.humidityLow;
+    //map['Temp_High'] = iotModel.tempHigh;
+    //map['Humidity_High'] = iotModel.humidityHigh;
+    //map['Humidity_Low'] = iotModel.humidityLow;
     map['Light'] = lightInt;
     map['Mode'] = modeInt;
-    map['Temp_Low'] = iotModel.tempLow;
+    //map['Temp_Low'] = iotModel.tempLow;
     map['Suitable_Humi'] = iotModel.suitableHumi;
     map['Fog'] = fogInt;
     map['Suitable_Tem'] = iotModel.suitableTem;
+    map['FanOn_Duration'] = iotModel.fanOn_Duration;
+    map['FanOff_Duration'] = iotModel.fanOff_Duration;
+    map['FogOn_Duration'] = iotModel.fogOn_Duration;
+    map['FogOff_Duration'] = iotModel.fogOff_Duration;
+    map['Humi_Out'] = iotModel.humi_Out;
+    map['Suitable_Humi_High'] = iotModel.suitable_Humi_High;
+    map['WaterFloorDuration'] = iotModel.waterFloorDuration;
 
-    await databaseReference.set(map).then((response){
+    await databaseReference.set(map).then((response) {
       print('Edit Success');
     });
   }
